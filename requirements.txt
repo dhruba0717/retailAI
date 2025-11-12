@@ -1,0 +1,9 @@
+streamlit
+openai
+python-dotenv
+sqlalchemy
+pandas
+plotly
+chromadb
+transformers
+sentence-transformers
