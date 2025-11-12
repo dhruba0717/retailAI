@@ -3,6 +3,7 @@ import pandas as pd
 import sqlite3
 from db import insert_feedback, insert_analysis, init_db, DB_PATH
 from ai_utils import analyze_feedback
+from rag_utils import add_feedback_to_faiss
 
 init_db()
 
@@ -24,7 +25,8 @@ if submit_btn:
         with st.spinner("🤖 AI analyzing your feedback..."):
             sentiment, topics, ai_reply = analyze_feedback(feedback_text, product)
             insert_analysis(feedback_id, sentiment, topics, ai_reply)
-
+            # 🧩 Add this line to auto-learn new feedback into RAG index
+            add_feedback_to_faiss(feedback_id, feedback_text)
         st.subheader("💬 AI Response:")
         st.write(ai_reply)
         st.caption(f"**Sentiment:** {sentiment} | **Topics:** {topics}")
